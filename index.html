@@ -553,45 +553,19 @@
             border: 1px solid var(--gray-200);
         }
 
-        .tab-bar {
-            display: flex;
-            gap: 4px;
-            margin-bottom: 24px;
-            background: var(--gray-100);
-            border-radius: 10px;
-            padding: 4px;
-            width: fit-content;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .tab-btn {
-            padding: 8px 20px;
-            border: none;
-            background: none;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--gray-600);
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-family: var(--font-body);
-        }
-
-        .tab-btn.active {
-            background: #fff;
+        .ood-group-title {
+            font-size: 18px;
+            font-weight: 600;
             color: var(--gray-900);
-            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+            margin: 32px 0 16px;
+            text-align: center;
         }
 
-        .tab-btn:hover:not(.active) { color: var(--gray-800); }
-
-        .tab-panel { display: none; }
-        .tab-panel.active { display: block; }
+        .ood-group-title:first-child { margin-top: 0; }
 
         .ood-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(4, 1fr);
             gap: 16px;
         }
 
@@ -715,7 +689,7 @@
             .demo-grid { grid-template-columns: 1fr; }
             .compare-pair { grid-template-columns: 1fr; }
             .results-grid { grid-template-columns: 1fr; }
-            .ood-grid { grid-template-columns: 1fr; }
+            .ood-grid { grid-template-columns: 1fr 1fr; }
             .section-title { font-size: 26px; }
             .results-headline { font-size: 36px; }
         }
@@ -792,26 +766,201 @@
 </section>
 
 <!-- ============================================
-     3. PRESENTATION VIDEO
+     3. TASK DEMONSTRATIONS
      ============================================ -->
-<section class="video-section" id="presentation-video">
+<section class="demos-section">
     <div class="container">
         <div class="fade-in" style="text-align:center;">
-            <p class="section-label">Presentation</p>
-            <h2 class="section-title">Watch the Overview</h2>
+            <p class="section-label">Demonstrations</p>
+            <h2 class="section-title">Tasks &amp; Environments</h2>
+            <p class="section-subtitle" style="margin:0 auto 40px;">
+                PhysMem is evaluated on three physically challenging manipulation tasks
+                requiring understanding of contact physics, momentum, and stability.
+            </p>
         </div>
-        <div class="video-wrapper fade-in">
-            <video controls preload="metadata">
-                <source src="videos/physmem-demo-v4.mp4" type="video/mp4">
-                Your browser does not support the video element.
-            </video>
+        <div class="demo-grid fade-in">
+            <div class="demo-card">
+                <video data-src="videos/test-time/parts_200.mp4" muted loop playsinline></video>
+                <div class="demo-card-body">
+                    <h3>Parts Organization</h3>
+                    <p>Arrange irregularly shaped objects into a target configuration, requiring understanding of geometry and contact physics.</p>
+                </div>
+            </div>
+            <div class="demo-card">
+                <video data-src="videos/test-time/ball_200.mp4" muted loop playsinline></video>
+                <div class="demo-card-body">
+                    <h3>Ball Navigation</h3>
+                    <p>Guide a ball to a target location by pushing, requiring grasp of momentum and friction dynamics.</p>
+                </div>
+            </div>
+            <div class="demo-card">
+                <video data-src="videos/test-time/stack_200.mp4" muted loop playsinline></video>
+                <div class="demo-card-body">
+                    <h3>Balanced Stacking</h3>
+                    <p>Stack objects to achieve balance, demanding knowledge of center-of-mass and stability principles.</p>
+                </div>
+            </div>
         </div>
-        <p class="video-caption fade-in">Overview of PhysMem</p>
     </div>
 </section>
 
 <!-- ============================================
-     4. METHOD OVERVIEW
+     4. BEFORE / AFTER COMPARISONS
+     ============================================ -->
+<section class="compare-section">
+    <div class="container">
+        <div class="fade-in" style="text-align:center;">
+            <p class="section-label">Comparison</p>
+            <h2 class="section-title">Before vs. After Memory</h2>
+            <p class="section-subtitle" style="margin:0 auto 40px;">
+                Side-by-side comparison showing how PhysMem's learned principles transform task performance.
+            </p>
+        </div>
+
+        <div class="fade-in">
+            <div class="compare-title">Ball Navigation</div>
+            <div class="compare-pair">
+                <div class="compare-item compare-fail">
+                    <span class="compare-label">Without Memory</span>
+                    <video data-src="videos/compare/ball-fail.mp4" muted loop playsinline></video>
+                </div>
+                <div class="compare-item compare-success">
+                    <span class="compare-label">With PhysMem</span>
+                    <video data-src="videos/compare/ball-success.mp4" muted loop playsinline></video>
+                </div>
+            </div>
+        </div>
+
+        <div class="fade-in">
+            <div class="compare-title">Parts Organization</div>
+            <div class="compare-pair">
+                <div class="compare-item compare-fail">
+                    <span class="compare-label">Without Memory</span>
+                    <video data-src="videos/compare/part-fail.mp4" muted loop playsinline></video>
+                </div>
+                <div class="compare-item compare-success">
+                    <span class="compare-label">With PhysMem</span>
+                    <video data-src="videos/compare/parts-success.mp4" muted loop playsinline></video>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ============================================
+     5. OOD GENERALIZATION
+     ============================================ -->
+<section class="ood-section">
+    <div class="container">
+        <div class="fade-in" style="text-align:center;">
+            <p class="section-label">Generalization</p>
+            <h2 class="section-title">Out-of-Distribution Transfer</h2>
+            <p class="section-subtitle" style="margin:0 auto 32px;">
+                PhysMem's principles generalize to unseen material properties, object masses, and even lunar gravity.
+            </p>
+        </div>
+
+        <div class="ood-image fade-in">
+            <img src="videos/ood/ood_material.png" alt="OOD material variations" loading="lazy">
+        </div>
+
+        <!-- Ball -->
+        <div class="fade-in">
+            <div class="ood-group-title">Ball</div>
+            <div class="ood-grid">
+                <div class="ood-card">
+                    <video data-src="videos/ood/ball/ball_no_prior_no_update.mp4" muted loop playsinline></video>
+                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--gray-400);"></span> No Prior, No Update</div>
+                </div>
+                <div class="ood-card">
+                    <video data-src="videos/ood/ball/ball_no_prior_update.mp4" muted loop playsinline></video>
+                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--yellow);"></span> No Prior, With Update</div>
+                </div>
+                <div class="ood-card">
+                    <video data-src="videos/ood/ball/ball_prior_no_update.mp4" muted loop playsinline></video>
+                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--blue);"></span> With Prior, No Update</div>
+                </div>
+                <div class="ood-card">
+                    <video data-src="videos/ood/ball/ball_prior_update.mp4" muted loop playsinline></video>
+                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--green);"></span> With Prior + Update</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ball (Moon) -->
+        <div class="fade-in">
+            <div class="ood-group-title">Ball (Moon)</div>
+            <div class="ood-grid">
+                <div class="ood-card">
+                    <video data-src="videos/ood/ball_moon/ball_no_prior_no_update.mp4" muted loop playsinline></video>
+                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--gray-400);"></span> No Prior, No Update</div>
+                </div>
+                <div class="ood-card">
+                    <video data-src="videos/ood/ball_moon/ball_no_prior_update.mp4" muted loop playsinline></video>
+                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--yellow);"></span> No Prior, With Update</div>
+                </div>
+                <div class="ood-card">
+                    <video data-src="videos/ood/ball_moon/ball_prior_no_update.mp4" muted loop playsinline></video>
+                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--blue);"></span> With Prior, No Update</div>
+                </div>
+                <div class="ood-card">
+                    <video data-src="videos/ood/ball_moon/ball_prior_update.mp4" muted loop playsinline></video>
+                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--green);"></span> With Prior + Update</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Parts -->
+        <div class="fade-in">
+            <div class="ood-group-title">Parts</div>
+            <div class="ood-grid">
+                <div class="ood-card">
+                    <video data-src="videos/ood/parts/parts_no_prior_no_update.mp4" muted loop playsinline></video>
+                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--gray-400);"></span> No Prior, No Update</div>
+                </div>
+                <div class="ood-card">
+                    <video data-src="videos/ood/parts/parts_no_prior_update.mp4" muted loop playsinline></video>
+                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--yellow);"></span> No Prior, With Update</div>
+                </div>
+                <div class="ood-card">
+                    <video data-src="videos/ood/parts/parts_prior_no_update.mp4" muted loop playsinline></video>
+                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--blue);"></span> With Prior, No Update</div>
+                </div>
+                <div class="ood-card">
+                    <video data-src="videos/ood/parts/parts_prior_update.mp4" muted loop playsinline></video>
+                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--green);"></span> With Prior + Update</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stack -->
+        <div class="fade-in">
+            <div class="ood-group-title">Stack</div>
+            <div class="ood-grid">
+                <div class="ood-card">
+                    <video data-src="videos/ood/stack/stack_no_prior_no_update.mp4" muted loop playsinline></video>
+                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--gray-400);"></span> No Prior, No Update</div>
+                </div>
+                <div class="ood-card">
+                    <video data-src="videos/ood/stack/stack_no_prior_update.mp4" muted loop playsinline></video>
+                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--yellow);"></span> No Prior, With Update</div>
+                </div>
+                <div class="ood-card">
+                    <video data-src="videos/ood/stack/stack_prior_no_update.mp4" muted loop playsinline></video>
+                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--blue);"></span> With Prior, No Update</div>
+                </div>
+                <div class="ood-card">
+                    <video data-src="videos/ood/stack/stack_prior_update.mp4" muted loop playsinline></video>
+                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--green);"></span> With Prior + Update</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     6. METHOD OVERVIEW
      ============================================ -->
 <section class="method-section">
     <div class="container">
@@ -871,198 +1020,21 @@
 </section>
 
 <!-- ============================================
-     5. TASK DEMONSTRATIONS
+     7. PRESENTATION VIDEO
      ============================================ -->
-<section class="demos-section">
+<section class="video-section" id="presentation-video">
     <div class="container">
         <div class="fade-in" style="text-align:center;">
-            <p class="section-label">Demonstrations</p>
-            <h2 class="section-title">Tasks &amp; Environments</h2>
-            <p class="section-subtitle" style="margin:0 auto 40px;">
-                PhysMem is evaluated on three physically challenging manipulation tasks
-                requiring understanding of contact physics, momentum, and stability.
-            </p>
+            <p class="section-label">Presentation</p>
+            <h2 class="section-title">Watch the Overview</h2>
         </div>
-        <div class="demo-grid fade-in">
-            <div class="demo-card">
-                <video data-src="videos/test-time/parts_200.mp4" muted loop playsinline></video>
-                <div class="demo-card-body">
-                    <h3>Parts Organization</h3>
-                    <p>Arrange irregularly shaped objects into a target configuration, requiring understanding of geometry and contact physics.</p>
-                </div>
-            </div>
-            <div class="demo-card">
-                <video data-src="videos/test-time/ball_200.mp4" muted loop playsinline></video>
-                <div class="demo-card-body">
-                    <h3>Ball Navigation</h3>
-                    <p>Guide a ball to a target location by pushing, requiring grasp of momentum and friction dynamics.</p>
-                </div>
-            </div>
-            <div class="demo-card">
-                <video data-src="videos/test-time/stack_200.mp4" muted loop playsinline></video>
-                <div class="demo-card-body">
-                    <h3>Balanced Stacking</h3>
-                    <p>Stack objects to achieve balance, demanding knowledge of center-of-mass and stability principles.</p>
-                </div>
-            </div>
+        <div class="video-wrapper fade-in">
+            <video controls preload="metadata">
+                <source src="videos/physmem-demo-v4.mp4" type="video/mp4">
+                Your browser does not support the video element.
+            </video>
         </div>
-    </div>
-</section>
-
-
-<!-- ============================================
-     7. BEFORE / AFTER COMPARISONS
-     ============================================ -->
-<section class="compare-section">
-    <div class="container">
-        <div class="fade-in" style="text-align:center;">
-            <p class="section-label">Comparison</p>
-            <h2 class="section-title">Before vs. After Memory</h2>
-            <p class="section-subtitle" style="margin:0 auto 40px;">
-                Side-by-side comparison showing how PhysMem's learned principles transform task performance.
-            </p>
-        </div>
-
-        <div class="fade-in">
-            <div class="compare-title">Ball Navigation</div>
-            <div class="compare-pair">
-                <div class="compare-item compare-fail">
-                    <span class="compare-label">Without Memory</span>
-                    <video data-src="videos/compare/ball-fail.mp4" muted loop playsinline></video>
-                </div>
-                <div class="compare-item compare-success">
-                    <span class="compare-label">With PhysMem</span>
-                    <video data-src="videos/compare/ball-success.mp4" muted loop playsinline></video>
-                </div>
-            </div>
-        </div>
-
-        <div class="fade-in">
-            <div class="compare-title">Parts Organization</div>
-            <div class="compare-pair">
-                <div class="compare-item compare-fail">
-                    <span class="compare-label">Without Memory</span>
-                    <video data-src="videos/compare/part-fail.mp4" muted loop playsinline></video>
-                </div>
-                <div class="compare-item compare-success">
-                    <span class="compare-label">With PhysMem</span>
-                    <video data-src="videos/compare/parts-success.mp4" muted loop playsinline></video>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</section>
-
-<!-- ============================================
-     8. OOD GENERALIZATION
-     ============================================ -->
-<section class="ood-section">
-    <div class="container">
-        <div class="fade-in" style="text-align:center;">
-            <p class="section-label">Generalization</p>
-            <h2 class="section-title">Out-of-Distribution Transfer</h2>
-            <p class="section-subtitle" style="margin:0 auto 32px;">
-                PhysMem's principles generalize to unseen material properties, object masses, and even lunar gravity.
-            </p>
-        </div>
-
-        <div class="ood-image fade-in">
-            <img src="videos/ood/ood_material.png" alt="OOD material variations" loading="lazy">
-        </div>
-
-        <!-- Tab bar -->
-        <div class="tab-bar fade-in" role="tablist">
-            <button class="tab-btn active" role="tab" data-tab="ball" aria-selected="true">Ball</button>
-            <button class="tab-btn" role="tab" data-tab="ball_moon" aria-selected="false">Ball (Moon)</button>
-            <button class="tab-btn" role="tab" data-tab="parts" aria-selected="false">Parts</button>
-            <button class="tab-btn" role="tab" data-tab="stack" aria-selected="false">Stack</button>
-        </div>
-
-        <!-- Tab panels -->
-        <div class="tab-panel active" data-panel="ball">
-            <div class="ood-grid fade-in">
-                <div class="ood-card">
-                    <video data-src="videos/ood/ball/ball_no_prior_no_update.mp4" muted loop playsinline></video>
-                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--gray-400);"></span> No Prior, No Update</div>
-                </div>
-                <div class="ood-card">
-                    <video data-src="videos/ood/ball/ball_no_prior_update.mp4" muted loop playsinline></video>
-                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--yellow);"></span> No Prior, With Update</div>
-                </div>
-                <div class="ood-card">
-                    <video data-src="videos/ood/ball/ball_prior_no_update.mp4" muted loop playsinline></video>
-                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--blue);"></span> With Prior, No Update</div>
-                </div>
-                <div class="ood-card">
-                    <video data-src="videos/ood/ball/ball_prior_update.mp4" muted loop playsinline></video>
-                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--green);"></span> With Prior + Update</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="tab-panel" data-panel="ball_moon">
-            <div class="ood-grid">
-                <div class="ood-card">
-                    <video data-src="videos/ood/ball_moon/ball_no_prior_no_update.mp4" muted loop playsinline></video>
-                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--gray-400);"></span> No Prior, No Update</div>
-                </div>
-                <div class="ood-card">
-                    <video data-src="videos/ood/ball_moon/ball_no_prior_update.mp4" muted loop playsinline></video>
-                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--yellow);"></span> No Prior, With Update</div>
-                </div>
-                <div class="ood-card">
-                    <video data-src="videos/ood/ball_moon/ball_prior_no_update.mp4" muted loop playsinline></video>
-                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--blue);"></span> With Prior, No Update</div>
-                </div>
-                <div class="ood-card">
-                    <video data-src="videos/ood/ball_moon/ball_prior_update.mp4" muted loop playsinline></video>
-                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--green);"></span> With Prior + Update</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="tab-panel" data-panel="parts">
-            <div class="ood-grid">
-                <div class="ood-card">
-                    <video data-src="videos/ood/parts/parts_no_prior_no_update.mp4" muted loop playsinline></video>
-                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--gray-400);"></span> No Prior, No Update</div>
-                </div>
-                <div class="ood-card">
-                    <video data-src="videos/ood/parts/parts_no_prior_update.mp4" muted loop playsinline></video>
-                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--yellow);"></span> No Prior, With Update</div>
-                </div>
-                <div class="ood-card">
-                    <video data-src="videos/ood/parts/parts_prior_no_update.mp4" muted loop playsinline></video>
-                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--blue);"></span> With Prior, No Update</div>
-                </div>
-                <div class="ood-card">
-                    <video data-src="videos/ood/parts/parts_prior_update.mp4" muted loop playsinline></video>
-                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--green);"></span> With Prior + Update</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="tab-panel" data-panel="stack">
-            <div class="ood-grid">
-                <div class="ood-card">
-                    <video data-src="videos/ood/stack/stack_no_prior_no_update.mp4" muted loop playsinline></video>
-                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--gray-400);"></span> No Prior, No Update</div>
-                </div>
-                <div class="ood-card">
-                    <video data-src="videos/ood/stack/stack_no_prior_update.mp4" muted loop playsinline></video>
-                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--yellow);"></span> No Prior, With Update</div>
-                </div>
-                <div class="ood-card">
-                    <video data-src="videos/ood/stack/stack_prior_no_update.mp4" muted loop playsinline></video>
-                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--blue);"></span> With Prior, No Update</div>
-                </div>
-                <div class="ood-card">
-                    <video data-src="videos/ood/stack/stack_prior_update.mp4" muted loop playsinline></video>
-                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--green);"></span> With Prior + Update</div>
-                </div>
-            </div>
-        </div>
+        <p class="video-caption fade-in">Overview of PhysMem</p>
     </div>
 </section>
 
@@ -1130,36 +1102,6 @@
 
     document.querySelectorAll('.fade-in').forEach(function(el) {
         fadeObserver.observe(el);
-    });
-
-    // ---- OOD Tab Switching ----
-    var tabButtons = document.querySelectorAll('.tab-btn');
-    var tabPanels = document.querySelectorAll('.tab-panel');
-
-    tabButtons.forEach(function(btn) {
-        btn.addEventListener('click', function() {
-            var target = this.dataset.tab;
-
-            tabButtons.forEach(function(b) {
-                b.classList.remove('active');
-                b.setAttribute('aria-selected', 'false');
-            });
-            this.classList.add('active');
-            this.setAttribute('aria-selected', 'true');
-
-            tabPanels.forEach(function(p) { p.classList.remove('active'); });
-            var activePanel = document.querySelector('[data-panel="' + target + '"]');
-            if (activePanel) {
-                activePanel.classList.add('active');
-                activePanel.querySelectorAll('video[data-src]').forEach(function(v) {
-                    if (!v.src) {
-                        v.src = v.dataset.src;
-                        v.load();
-                        v.play().catch(function() {});
-                    }
-                });
-            }
-        });
     });
 
     // ---- Synced comparison videos ----
