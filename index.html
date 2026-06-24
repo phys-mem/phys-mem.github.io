@@ -781,6 +781,557 @@
 </head>
 <body>
 
-<!-- existing body content preserved -->
+<!-- ============================================
+     SIDEBAR NAVIGATION
+     ============================================ -->
+<nav class="sidebar-nav" id="sidebar-nav">
+    <ul>
+        <li data-section="tldr"><a href="#tldr">TL;DR</a></li>
+        <li data-section="abstract"><a href="#abstract">Abstract</a></li>
+        <li data-section="presentation-video"><a href="#presentation-video">Video</a></li>
+        <li data-section="demos"><a href="#demos">Demos</a></li>
+        <li data-section="comparisons"><a href="#comparisons">Comparisons</a></li>
+        <li data-section="learning-curve"><a href="#learning-curve">Learning Curve</a></li>
+        <li data-section="ood"><a href="#ood">OOD Transfer</a></li>
+        <li data-section="method"><a href="#method">Method</a></li>
+        <li data-section="citation"><a href="#citation">Citation</a></li>
+    </ul>
+</nav>
+
+<!-- ============================================
+     1. HERO
+     ============================================ -->
+<section class="hero">
+    <div class="hero-video-bg">
+        <video autoplay muted loop playsinline>
+            <source src="videos/beginv3.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div class="hero-content">
+        <p class="hero-name">PhysMem</p>
+        <h1 class="hero-title">Scaling Test-Time Memory for Embodied Physical Reasoning</h1>
+        <p class="hero-authors">
+            <a href="https://haoyangli16.github.io/" target="_blank">Haoyang Li</a> &middot; <a href="https://qq456cvb.github.io/" target="_blank">Yang You</a> &middot; <a href="https://cseweb.ucsd.edu/~haosu/index.html" target="_blank">Hao Su</a> &middot; <a href="https://profiles.stanford.edu/leonidas-guibas" target="_blank">Leonidas Guibas</a>
+        </p>
+        <p class="hero-affiliations">Stanford University &middot; UC San Diego</p>
+        <div class="hero-logos">
+            <img src="images/stanford-university-stacked.png" alt="Stanford University">
+            <img src="images/UCSD-Logo.png" alt="UC San Diego">
+        </div>
+        <div class="hero-links">
+            <a href="https://arxiv.org/pdf/2602.20323" class="hero-link primary" target="_blank">
+                <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8" fill="none"/></svg>
+                PDF
+            </a>
+            <a href="https://arxiv.org/abs/2602.20323" class="hero-link" target="_blank">
+                <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                arXiv
+            </a>
+            <a href="#presentation-video" class="hero-link">
+                <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                Video
+            </a>
+            <a href="https://github.com/haoyangli16/PhysMem" class="hero-link" target="_blank">
+                <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                Code
+            </a>
+            <a href="https://x.com/Haoyang1i/status/2029077161794257296" class="hero-link" target="_blank">
+                <svg viewBox="0 0 24 24" style="fill:currentColor;stroke:none;"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                Thread
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     2. TL;DR
+     ============================================ -->
+<section class="tldr-section" id="tldr">
+    <div class="container">
+        <div class="tldr-card fade-in">
+            <div class="tldr-label">TL;DR</div>
+            <p style="font-size:16px; line-height:1.8; color:var(--gray-800); margin:0;">
+                <strong>World Interaction</strong> → <strong>Experience</strong> → <strong>Embodied Memory</strong> → <strong>Deliberation</strong> → <strong>Action</strong>
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     3. ABSTRACT + KEY NUMBERS
+     ============================================ -->
+<section class="abstract-section" id="abstract">
+    <div class="container">
+        <div class="fade-in">
+            <p class="section-label">Abstract</p>
+            <p class="abstract-text">
+                Reliable object manipulation requires understanding physical properties that vary across objects and environments.
+                Vision-language model (VLM) planners can reason about friction and stability in general terms; however, they often
+                cannot predict how a specific ball will roll on a particular surface or which stone will provide a stable foundation
+                without direct experience. We present <strong>PhysMem</strong>, a memory framework that enables VLM robot planners
+                to learn physical principles from interaction at test time, <em>without updating model parameters</em>. The system
+                records experiences, generates candidate hypotheses, and verifies them through targeted interaction before promoting
+                validated knowledge to guide future decisions. A central design choice is <em>verification before application</em>:
+                the system tests hypotheses against new observations rather than applying retrieved experience directly.
+            </p>
+        </div>
+        <div class="stats-row fade-in">
+            <div class="stat-card">
+                <div class="stat-number">76%</div>
+                <div class="stat-label">Success Rate</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">3.3&times;</div>
+                <div class="stat-label">vs. Baseline</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">0</div>
+                <div class="stat-label">Parameter Updates</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     4. PRESENTATION VIDEO
+     ============================================ -->
+<section class="video-section" id="presentation-video">
+    <div class="container">
+        <div class="fade-in" style="text-align:center;">
+            <p class="section-label">Presentation</p>
+            <h2 class="section-title">Watch the Overview</h2>
+        </div>
+        <div class="video-wrapper fade-in">
+            <video controls preload="metadata">
+                <source src="videos/physmem-demo-v4.mp4" type="video/mp4">
+                Your browser does not support the video element.
+            </video>
+        </div>
+        <p class="video-caption fade-in">Overview of PhysMem</p>
+    </div>
+</section>
+
+<!-- ============================================
+     5. TASK DEMONSTRATIONS
+     ============================================ -->
+<section class="demos-section" id="demos">
+    <div class="container">
+        <div class="fade-in" style="text-align:center;">
+            <p class="section-label">Demonstrations</p>
+            <h2 class="section-title">Tasks &amp; Environments</h2>
+            <p class="section-subtitle" style="margin:0 auto 40px;">
+                PhysMem is evaluated on three physically challenging manipulation tasks
+                requiring understanding of contact physics, momentum, and stability.
+            </p>
+        </div>
+        <div class="demo-grid fade-in">
+            <div class="demo-card">
+                <video data-src="videos/test-time/parts_200.mp4" muted loop playsinline preload="none"></video>
+                <div class="demo-card-body">
+                    <h3>Parts Organization</h3>
+                    <p>Arrange irregularly shaped objects into a target configuration, requiring understanding of geometry and contact physics.</p>
+                </div>
+            </div>
+            <div class="demo-card">
+                <video data-src="videos/test-time/ball_200.mp4" muted loop playsinline preload="none"></video>
+                <div class="demo-card-body">
+                    <h3>Ball Navigation</h3>
+                    <p>Guide a ball to a target location by pushing, requiring grasp of momentum and friction dynamics.</p>
+                </div>
+            </div>
+            <div class="demo-card">
+                <video data-src="videos/test-time/stack_200.mp4" muted loop playsinline preload="none"></video>
+                <div class="demo-card-body">
+                    <h3>Balanced Stacking</h3>
+                    <p>Stack objects to achieve balance, demanding knowledge of center-of-mass and stability principles.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     6. BEFORE / AFTER COMPARISONS
+     ============================================ -->
+<section class="compare-section" id="comparisons">
+    <div class="container">
+        <div class="fade-in" style="text-align:center;">
+            <p class="section-label">Comparison</p>
+            <h2 class="section-title">Before vs. After Memory</h2>
+            <p class="section-subtitle" style="margin:0 auto 40px;">
+                Side-by-side comparison showing how PhysMem's learned principles transform task performance.
+            </p>
+        </div>
+
+        <div class="fade-in">
+            <div class="compare-title">Ball Navigation</div>
+            <div class="compare-pair">
+                <div class="compare-item compare-fail">
+                    <span class="compare-label">Without Memory</span>
+                    <video data-src="videos/compare/ball-fail.mp4" muted loop playsinline preload="none"></video>
+                </div>
+                <div class="compare-item compare-success">
+                    <span class="compare-label">With PhysMem</span>
+                    <video data-src="videos/compare/ball-success.mp4" muted loop playsinline preload="none"></video>
+                </div>
+            </div>
+        </div>
+
+        <div class="fade-in">
+            <div class="compare-title">Parts Organization</div>
+            <div class="compare-pair">
+                <div class="compare-item compare-fail">
+                    <span class="compare-label">Without Memory</span>
+                    <video data-src="videos/compare/part-fail.mp4" muted loop playsinline preload="none"></video>
+                </div>
+                <div class="compare-item compare-success">
+                    <span class="compare-label">With PhysMem</span>
+                    <video data-src="videos/compare/parts-success.mp4" muted loop playsinline preload="none"></video>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ============================================
+     7. TEST-TIME LEARNING CURVE
+     ============================================ -->
+<section class="method-section" id="learning-curve">
+    <div class="container">
+        <div class="fade-in" style="text-align:center;">
+            <p class="section-label">Analysis</p>
+            <h2 class="section-title">Test-Time Learning Curve</h2>
+            <p class="section-subtitle" style="margin:0 auto 40px;">
+                How does PhysMem improve through interaction, and how much experience is needed?
+                We evaluate performance at different experience utilization levels (0%, 25%, 50%, 100%) across three runs per condition.
+            </p>
+        </div>
+
+        <div class="figure fade-in">
+            <img src="images/test_time_evolution.png" alt="Test-time learning curves across tasks" loading="lazy">
+            <p class="figure-caption">
+                <strong>Test-time learning curves.</strong>
+                Without memory (0%), performance stays flat. With full memory, Parts Organization improves from &minus;1 to 9.7
+                and Ball Navigation shows an even larger gain (14.7 vs. 0.7).
+                Task complexity determines how much experience is needed: Ball Navigation benefits from full experience,
+                while Balanced Stacking shows diminishing returns where 50% nearly matches 100%.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     8. OOD GENERALIZATION
+     ============================================ -->
+<section class="ood-section" id="ood">
+    <div class="container">
+        <div class="fade-in" style="text-align:center;">
+            <p class="section-label">Generalization</p>
+            <h2 class="section-title">Out-of-Distribution Transfer</h2>
+            <p class="section-subtitle" style="margin:0 auto 32px;">
+                PhysMem's principles generalize to unseen material properties, object masses, and even lunar gravity.
+            </p>
+        </div>
+
+        <div class="ood-image fade-in">
+            <img src="videos/ood/ood_material.png" alt="OOD material variations" loading="lazy">
+        </div>
+
+        <!-- Ball -->
+        <div class="fade-in">
+            <div class="ood-group-title">Ball</div>
+            <div class="ood-grid">
+                <div class="ood-card">
+                    <video data-src="videos/ood/ball/ball_no_prior_no_update.mp4" muted loop playsinline preload="none"></video>
+                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--gray-400);"></span> No Prior, No Update</div>
+                </div>
+                <div class="ood-card">
+                    <video data-src="videos/ood/ball/ball_no_prior_update.mp4" muted loop playsinline preload="none"></video>
+                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--yellow);"></span> No Prior, With Update</div>
+                </div>
+                <div class="ood-card">
+                    <video data-src="videos/ood/ball/ball_prior_no_update.mp4" muted loop playsinline preload="none"></video>
+                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--blue);"></span> With Prior, No Update</div>
+                </div>
+                <div class="ood-card">
+                    <video data-src="videos/ood/ball/ball_prior_update.mp4" muted loop playsinline preload="none"></video>
+                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--green);"></span> With Prior + Update</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ball (Moon) -->
+        <div class="fade-in">
+            <div class="ood-group-title">Ball (Moon)</div>
+            <div class="ood-grid">
+                <div class="ood-card">
+                    <video data-src="videos/ood/ball_moon/ball_no_prior_no_update.mp4" muted loop playsinline preload="none"></video>
+                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--gray-400);"></span> No Prior, No Update</div>
+                </div>
+                <div class="ood-card">
+                    <video data-src="videos/ood/ball_moon/ball_no_prior_update.mp4" muted loop playsinline preload="none"></video>
+                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--yellow);"></span> No Prior, With Update</div>
+                </div>
+                <div class="ood-card">
+                    <video data-src="videos/ood/ball_moon/ball_prior_no_update.mp4" muted loop playsinline preload="none"></video>
+                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--blue);"></span> With Prior, No Update</div>
+                </div>
+                <div class="ood-card">
+                    <video data-src="videos/ood/ball_moon/ball_prior_update.mp4" muted loop playsinline preload="none"></video>
+                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--green);"></span> With Prior + Update</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Parts -->
+        <div class="fade-in">
+            <div class="ood-group-title">Parts</div>
+            <div class="ood-grid">
+                <div class="ood-card">
+                    <video data-src="videos/ood/parts/parts_no_prior_no_update.mp4" muted loop playsinline preload="none"></video>
+                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--gray-400);"></span> No Prior, No Update</div>
+                </div>
+                <div class="ood-card">
+                    <video data-src="videos/ood/parts/parts_no_prior_update.mp4" muted loop playsinline preload="none"></video>
+                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--yellow);"></span> No Prior, With Update</div>
+                </div>
+                <div class="ood-card">
+                    <video data-src="videos/ood/parts/parts_prior_no_update.mp4" muted loop playsinline preload="none"></video>
+                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--blue);"></span> With Prior, No Update</div>
+                </div>
+                <div class="ood-card">
+                    <video data-src="videos/ood/parts/parts_prior_update.mp4" muted loop playsinline preload="none"></video>
+                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--green);"></span> With Prior + Update</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stack -->
+        <div class="fade-in">
+            <div class="ood-group-title">Stack</div>
+            <div class="ood-grid">
+                <div class="ood-card">
+                    <video data-src="videos/ood/stack/stack_no_prior_no_update.mp4" muted loop playsinline preload="none"></video>
+                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--gray-400);"></span> No Prior, No Update</div>
+                </div>
+                <div class="ood-card">
+                    <video data-src="videos/ood/stack/stack_no_prior_update.mp4" muted loop playsinline preload="none"></video>
+                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--yellow);"></span> No Prior, With Update</div>
+                </div>
+                <div class="ood-card">
+                    <video data-src="videos/ood/stack/stack_prior_no_update.mp4" muted loop playsinline preload="none"></video>
+                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--blue);"></span> With Prior, No Update</div>
+                </div>
+                <div class="ood-card">
+                    <video data-src="videos/ood/stack/stack_prior_update.mp4" muted loop playsinline preload="none"></video>
+                    <div class="ood-card-label"><span class="ood-dot" style="background:var(--green);"></span> With Prior + Update</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     8. METHOD OVERVIEW
+     ============================================ -->
+<section class="method-section" id="method">
+    <div class="container">
+        <div class="fade-in" style="text-align:center;">
+            <p class="section-label">Method</p>
+            <h2 class="section-title">How PhysMem Works</h2>
+            <p class="section-subtitle" style="margin:0 auto 40px;">
+                Inspired by the scientific method, PhysMem transforms raw interaction experiences
+                into verified physical principles through a four-stage loop.
+            </p>
+        </div>
+
+        <!-- Pipeline figure from paper (Fig 2) -->
+        <div class="figure fade-in">
+            <img src="images/physmem_fig2_pipeline.jpg" alt="System overview of PhysMem" loading="lazy" style="border:none;">
+            <p class="figure-caption">
+                <strong>System overview.</strong>
+                Left: A three-tier memory system stores raw experiences, clusters them into testable hypotheses,
+                and promotes verified knowledge as principles.
+                Right: The VLM agent retrieves principles and hypotheses from memory to guide planning.
+            </p>
+        </div>
+
+        <!-- Four explanation cards -->
+        <div class="method-cards fade-in">
+            <div class="method-card">
+                <div class="method-card-icon">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                </div>
+                <h3>Collect</h3>
+                <p>Gather interaction experiences: visual observations, actions taken, and their outcomes.</p>
+            </div>
+            <div class="method-card">
+                <div class="method-card-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 017 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 01-2 2h-4a2 2 0 01-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 017-7z"/><path d="M10 21h4"/></svg>
+                </div>
+                <h3>Hypothesize</h3>
+                <p>Generate candidate physical principles from patterns observed in collected experiences.</p>
+            </div>
+            <div class="method-card">
+                <div class="method-card-icon">
+                    <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                </div>
+                <h3>Verify</h3>
+                <p>Validate hypotheses through action-level outcome attribution across multiple trials.</p>
+            </div>
+            <div class="method-card">
+                <div class="method-card-icon" style="background: var(--green-light);">
+                    <svg viewBox="0 0 24 24" style="stroke: var(--green);"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                </div>
+                <h3>Promote</h3>
+                <p>Verified principles join persistent memory, guiding all future planning decisions.</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ============================================
+     9. BIBTEX + FOOTER
+     ============================================ -->
+<section class="bibtex-section" id="citation">
+    <div class="container">
+        <div class="fade-in" style="text-align:center;">
+            <p class="section-label">Citation</p>
+            <h2 class="section-title">BibTeX</h2>
+        </div>
+        <div class="bibtex-block fade-in">
+            <button class="copy-btn" onclick="copyBibtex(this)">Copy</button>
+            <pre id="bibtex-text">@article{li2026physmem,
+  title={PhysMem: Scaling Test-Time Memory for Embodied Physical Reasoning},
+  author={Li, Haoyang and You, Yang and Su, Hao and Guibas, Leonidas},
+  journal={arXiv preprint arXiv:2602.20323},
+  year={2026}
+}</pre>
+        </div>
+    </div>
+</section>
+
+<footer class="site-footer">
+    PhysMem &middot; Stanford University &middot; UC San Diego
+</footer>
+
+<!-- ============================================
+     JAVASCRIPT
+     ============================================ -->
+<script>
+(function() {
+    'use strict';
+
+    // ---- Intersection Observer: lazy video loading ----
+    var videoObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                var video = entry.target;
+                if (video.dataset.src && !video.src) {
+                    video.src = video.dataset.src;
+                    video.autoplay = true;
+                    video.load();
+                    video.addEventListener('canplay', function handler() {
+                        video.play().catch(function() {});
+                        video.removeEventListener('canplay', handler);
+                    });
+                }
+                videoObserver.unobserve(video);
+            }
+        });
+    }, { rootMargin: '400px' });
+
+    document.querySelectorAll('video[data-src]').forEach(function(v) {
+        videoObserver.observe(v);
+    });
+
+    // ---- Fade-in on scroll ----
+    var fadeObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                fadeObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(function(el) {
+        fadeObserver.observe(el);
+    });
+
+    // ---- Synced comparison videos ----
+    document.querySelectorAll('.compare-pair').forEach(function(pair) {
+        var videos = pair.querySelectorAll('video');
+        if (videos.length === 2) {
+            videos[0].addEventListener('play', function() {
+                videos[1].currentTime = videos[0].currentTime;
+                videos[1].play().catch(function() {});
+            });
+            videos[1].addEventListener('play', function() {
+                videos[0].currentTime = videos[1].currentTime;
+                videos[0].play().catch(function() {});
+            });
+        }
+    });
+
+    // ---- Sidebar navigation: show/hide + active section tracking ----
+    var sidebar = document.getElementById('sidebar-nav');
+    var sectionIds = ['tldr', 'abstract', 'presentation-video', 'demos', 'comparisons', 'learning-curve', 'ood', 'method', 'citation'];
+    var navItems = {};
+
+    sidebar.querySelectorAll('li[data-section]').forEach(function(li) {
+        navItems[li.dataset.section] = li;
+    });
+
+    var sectionObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                // Clear all active
+                Object.keys(navItems).forEach(function(key) {
+                    navItems[key].classList.remove('is-active');
+                });
+                var id = entry.target.id;
+                if (navItems[id]) {
+                    navItems[id].classList.add('is-active');
+                }
+            }
+        });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+
+    sectionIds.forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) sectionObserver.observe(el);
+    });
+
+    // Show sidebar only after scrolling past hero
+    var heroEl = document.querySelector('.hero');
+    var heroObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                sidebar.classList.remove('is-visible');
+            } else {
+                sidebar.classList.add('is-visible');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    if (heroEl) heroObserver.observe(heroEl);
+})();
+
+function copyBibtex(btn) {
+    var text = document.getElementById('bibtex-text').textContent;
+    navigator.clipboard.writeText(text).then(function() {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(function() {
+            btn.textContent = 'Copy';
+            btn.classList.remove('copied');
+        }, 2000);
+    });
+}
+</script>
+
 </body>
 </html>
